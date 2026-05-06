@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Todo List</title>
+        <style>
+            .done {
+                text-decoration: line-through;
+                color: gray;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <br />
+            <input id="title" type="text" placeholder="Title" /><br /><br />
+            <input id="description" type="text" placeholder="Description" /><br /><br />
+            <button onclick="addTodo()">Add Todo</button>
+        </div>
+
+        <div id="container"></div>
+        <!-- Main div -->
+
+        <script>
+            let todoCounter = 0; // Initialize counter
+
+            function addTodo() {
+                const title = document.getElementById('title').value;
+                const description = document.getElementById('description').value;
+
+                todoCounter++; // Increment counter for each new todo
+
+                // Create new todo div with unique ID
+                const newTodo = document.createElement('div');
+                newTodo.id = `todo-${todoCounter}`; // Set unique ID for each todo
+
+                // Create title div
+                const childTitleDiv = document.createElement('div');
+                childTitleDiv.innerHTML = `Title of Todo ${todoCounter}: ${title}`;
+                newTodo.appendChild(childTitleDiv);
+
+                // Create description div
+                const childDescriptionDiv = document.createElement('div');
+                childDescriptionDiv.innerHTML = `Description of Todo ${todoCounter}: ${description}`;
+                newTodo.appendChild(childDescriptionDiv);
+
+                // Create button
+                const childButton = document.createElement('button');
+                childButton.innerHTML = 'Mark as Done';
+                childButton.onclick = function () {
+                    newTodo.classList.toggle('done');
+                    childButton.innerHTML = newTodo.classList.contains('done')
+                        ? 'Undo'
+                        : 'Mark as Done';
+                };
+                newTodo.appendChild(childButton);
+
+                // Append new todo to container
+                document.getElementById('container').appendChild(newTodo);
+
+                // Clear the input fields after adding the todo
+                document.getElementById('title').value = '';
+                document.getElementById('description').value = '';
+            }
+        </script>
+    </body>
+</html>

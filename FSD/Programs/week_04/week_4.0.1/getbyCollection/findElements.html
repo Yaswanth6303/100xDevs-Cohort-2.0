@@ -1,0 +1,43 @@
+<!--Selectors are applied to the entire document, not just the particular element
+on which querySelectorAll() Returns a list containing one Element object for each
+descendant node that matches at least one of the specified selectors-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>JavaScript HTML DOM</h2>
+
+    <p>Finding HTML Elements by Query Selector</p>
+
+    <div> Div one </div>
+    <p class="intro"> Paragraph one </p>
+    <div> Div two </div>
+    <p class="subheading"> Paragraph two </p>
+    <div> Yet another div </div>
+    <div id="myDIV" style="border:1px solid black;padding:8px;">
+        <h2 class="example">A Heading</h2>
+        <p class="example">A paragraph.</p>
+        <p class="example">Another paragraph.</p>
+    </div>
+
+    <p id="demo"></p>
+
+    <script>
+        var paragraphs = document.querySelectorAll("p"); //This will apply for all paragraphs
+        // If i want to apply for particular paragraphs then
+        // var paragraphs = document.querySelectorAll("p.intro"); // For particular paragraph
+        paragraphs.forEach(paragraph => paragraph.style.backgroundColor = "red")
+        paragraphs.forEach(paragraph => paragraph.style.color = "white")
+
+        // can pass multiple selectors as well
+        // const matches = myBox.querySelectorAll("p.intro, p.subheading");
+        const element = document.getElementById("myDIV");
+        const list = element.querySelectorAll(".example");
+        document.getElementById("demo").innerHTML = list.length;
+    </script>
+</body>
+</html>

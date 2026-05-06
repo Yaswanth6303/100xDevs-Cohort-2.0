@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>The Element Object</h1>
+    <h2>The setAttribute() method</h2>
+
+    <input id="myInput" type="text" placeholder="Type Something">
+
+    <p>Click "Change" to change the input field to an input button.</p>
+    <button onclick="myFunctions()">Change</button>
+
+    <script>
+        function myFunctions(){
+            document.getElementById("myInput").setAttribute("type", "button")
+        }
+    </script>
+</body>
+</html>

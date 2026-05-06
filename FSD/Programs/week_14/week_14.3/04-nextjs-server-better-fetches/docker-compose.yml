@@ -1,0 +1,17 @@
+name: c2-w14-3-nextjs
+
+services:
+  db:
+    image: postgres:latest
+    container_name: c2-w14-3-nextjs-server-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=04-nextjs-server-better-fetches
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

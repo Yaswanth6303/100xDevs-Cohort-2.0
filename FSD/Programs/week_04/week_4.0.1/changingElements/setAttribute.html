@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .democlass{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="myH1">The Element object</h1>
+    <h2>The setAttribute() method</h2>
+
+    <p>Click "Add Class" to add a class attribute to the h1 element:</p>
+
+    <button onclick="myFunction()">Add Class</button>
+
+    <script>
+        function myFunction(){
+            document.getElementById("myH1").setAttribute("class", "democlass")
+        }
+    </script>
+</body>
+</html>

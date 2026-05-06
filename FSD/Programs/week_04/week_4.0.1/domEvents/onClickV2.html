@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Javascript HTML Events</h1>
+    <h2>The onClick Attribute</h2>
+
+    <h2 onclick="changeText(this)">Click on this text</h2>
+
+    <script>
+        function changeText(id){
+            id.innerHTML = "OOPS!"
+        }
+    </script>
+</body>
+</html>

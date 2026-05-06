@@ -1,0 +1,27 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// To get the generated client, run: bunx prisma generate --no-engine => No need of giving --no-engine 
+// as we are using prisma v7.2.0
+// For Cloudflare Workers, we need to use prisma accelerate
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+  runtime  = "workerd"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Log {
+  id        Int @id @default(autoincrement())
+  level     String
+  message   String
+  meta      Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

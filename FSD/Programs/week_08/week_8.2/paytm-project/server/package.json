@@ -1,0 +1,28 @@
+{
+  "name": "server",
+  "module": "src/server.js",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "eslint": "^9.33.0",
+    "@eslint/js": "^9.33.0"
+  },
+  "scripts": {
+    "start": "bun run src/server.js",
+    "dev": "bun run --hot src/server.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:json": "eslint . --format json"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.18.3",
+    "morgan": "^1.10.0",
+    "zod": "^4.1.11"
+  }
+}

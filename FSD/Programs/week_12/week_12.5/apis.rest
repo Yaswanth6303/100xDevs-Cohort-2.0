@@ -1,0 +1,73 @@
+@baseUrl = http://localhost:3000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbGljZUBleGFtcGxlLmNvbSIsImlhdCI6MTc3MTE1NjE5OSwiZXhwIjoxNzcxMjQyNTk5fQ.8_90InsFY_cEST5qf6W6LgvZiTqVE8ulBYHqiNQZO4I
+
+### Register user
+POST {{baseUrl}}/api/users/register
+Content-Type: application/json
+
+{
+  "email": "yaswanth@example.com",
+  "password": "password123",
+  "firstName": "Yaswanth",
+  "lastName": "Gudivada"
+}
+
+### Login user
+# @name login
+POST {{baseUrl}}/api/users/login
+Content-Type: application/json
+
+{
+  "email": "alice@example.com",
+  "password": "password123"
+}
+
+### Update user (public route, provide the user id in body)
+PUT {{baseUrl}}/api/users/user
+Content-Type: application/json
+
+{
+  "id": 1,
+  "email": "alice.new@example.com",
+  "firstName": "Alice",
+  "lastName": "Doe",
+  "password": "newpassword123"
+}
+
+### Get profile (requires Bearer token from Login response)
+GET {{baseUrl}}/api/users/profile
+Authorization: Bearer {{token}}
+
+### Create todo (requires Bearer token from Login response)
+POST {{baseUrl}}/api/todos
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Watch Dhurandhar movie",
+  "description": "Watch the movie Dhurandhar in netflix"
+}
+
+### Get todos (requires Bearer token from Login response)
+GET {{baseUrl}}/api/todos
+Authorization: Bearer {{token}}
+
+### Update todo (requires Bearer token from Login response)
+PUT {{baseUrl}}/api/todos
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "id": 2,
+  "title": "Buy groceries and snacks",
+  "description": "Milk, eggs, bread, chips, and vegetables"
+}
+
+### Delete todo (requires Bearer token from Login response)
+DELETE {{baseUrl}}/api/todos
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "id": 3
+}

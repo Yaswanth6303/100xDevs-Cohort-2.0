@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #myDIV1, #myDIV2{
+            background-color: coral;
+            padding: 50px;
+        }
+
+        #myP1, #myP2{
+            background-color: white;
+            font-size: 20px;
+            border: 1px solid;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Javascript addEventListener()</h2>
+    <div id="myDIV1">
+        <h2>Bubbling: </h2>
+        <p id="myP1">Click Me!</p>
+    </div>
+    <div id="myDIV2">
+        <h2>Capturing: </h2>
+        <p id="myP2">Click Me!</p>
+    </div>
+
+    <script>
+        document.getElementById("myP1").addEventListener("click",function (){
+            alert("You clicked white element!")
+        }, false)
+
+        document.getElementById("myDIV1").addEventListener("click",function (){
+            alert("You clicked orange element!")
+        }, false)
+
+        document.getElementById("myP2").addEventListener("click",function (){
+            alert("You clicked white element!")
+        }, true)
+
+        document.getElementById("myDIV2").addEventListener("click",function (){
+            alert("You clicked orange element!")
+        }, true)
+    </script>
+</body>
+</html>

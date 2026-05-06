@@ -1,0 +1,22 @@
+{
+  "name": "week_32.1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "tsc -b && node dist/index.js",
+    "produce": "tsc -b && node dist/producer.js",
+    "consume": "tsc -b && node dist/consumer.js",
+    "produce-payment-topic": "tsc -b && node dist/payment-done-topic/producer.js",
+    "consume-payment-topic": "tsc -b && node dist/payment-done-topic/consumer.js",
+    "produce:user": "tsc -b && node dist/partition-stratergy/producer-user.js",
+    "consume:user": "tsc -b && node dist/partition-stratergy/consumer-user.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "kafkajs": "^2.2.4"
+  }
+}

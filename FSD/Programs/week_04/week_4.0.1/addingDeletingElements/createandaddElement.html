@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>The Document object</h1>
+    <h2>The createElement() Method</h2>
+
+    <p>Create a p element and append it to "myDiv":</p>
+
+    <div id="myDIV" style="padding: 16px;background-color: lightgrey">
+        <h3>A div element</h3>
+    </div>
+    <br>
+    <button onclick="myFunc()">Click Me</button>
+
+    <script>
+        function myFunc(){
+            // Create Element
+            const para = document.createElement('p')
+            para.innerHTML = "This is a paragraph"
+
+            // Append to another element:
+            document.getElementById("myDIV").appendChild(para)        
+        }
+    </script>
+</body>
+</html>

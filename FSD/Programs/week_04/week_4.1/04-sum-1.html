@@ -1,0 +1,70 @@
+<!-- 
+Currently, the sum is calculated automatically whenever the user types in the input fields.
+However, this means that a request is sent to the server every time a single character is typed.  
+
+Example:
+If the user types "1024", separate requests are sent for:
+1 → "1"
+2 → "10"
+3 → "102"
+4 → "1024"
+
+This can create unnecessary server load.
+
+Two ways to avoid this:
+1. Paste the entire number at once — only one request will be sent.
+2. Use a technique called "debouncing" — wait for a short pause (e.g., 100ms) after the user stops typing before sending the request.
+   This way, typing "1024" quickly will send just one request for "1024" instead of four.
+   
+See `05-sum-2.html` for a raw implementation of debouncing without libraries.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sum Calculator (No Debounce)</title>
+    <!-- Axios library for making HTTP requests -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <br>
+    <!-- First number input; triggers calculation on every keystroke -->
+    <input oninput="calculateSum()" type="text" id="firstNumber" placeholder="First Number"><br><br>
+
+    <!-- Second number input; triggers calculation on every keystroke -->
+    <input oninput="calculateSum()" type="text" id="secondNumber" placeholder="Second Number"><br><br>
+
+    <!-- Area to display the sum -->
+    <p id="sum"></p>
+
+    <script>
+        /**
+         * Sends a request to the server to calculate the sum
+         * of two numbers entered in the input fields.
+         * Currently called on every single keystroke (no debounce).
+         */
+        async function calculateSum() {
+            // Read values from input fields
+            const firstNumber = document.getElementById("firstNumber").value;
+            const secondNumber = document.getElementById("secondNumber").value;
+
+            try {
+                // Send GET request to the server with query parameters
+                const response = await axios.get("http://localhost:3000/sum", {
+                    params: {
+                        a: firstNumber,
+                        b: secondNumber
+                    }
+                });
+
+                // Display the sum in the paragraph
+                document.getElementById("sum").innerHTML = 'Sum is: ' + response.data.toString();
+            } catch (error) {
+                // Log any errors to the console
+                console.error("Error fetching sum:", error);
+            }
+        }
+    </script>
+</body>
+</html>

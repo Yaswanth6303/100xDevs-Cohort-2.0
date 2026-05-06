@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sum Calculator</title>
+</head>
+<body>
+    <br>
+    <!-- Input field for the first number -->
+    <input type="text" id="firstNumber" placeholder="First Number"><br><br>
+
+    <!-- Input field for the second number -->
+    <input type="text" id="secondNumber" placeholder="Second Number"><br><br>
+
+    <!-- Button to trigger the sum calculation -->
+    <button onclick="calculateSum()">Calculate Sum</button>
+
+    <!-- Paragraph to display the result -->
+    <p id="sum"></p>
+
+    <script>
+        /**
+         * Calculates the sum of two numbers entered by the user
+         * and displays the result on the webpage.
+         */
+        function calculateSum() {
+            // Get the first number from the input field and convert it to an integer
+            const firstNumber = parseInt(document.getElementById("firstNumber").value);
+            console.log(typeof document.getElementById("firstNumber")); // This is an object of type HTMLInputElement
+
+            // Get the second number from the input field and convert it to an integer
+            const secondNumber = parseInt(document.getElementById("secondNumber").value);
+
+            // Check if either input is not a valid number
+            if (isNaN(firstNumber) || isNaN(secondNumber)) {
+                // Display an error message if the inputs are invalid
+                document.getElementById("sum").innerHTML = "Please enter valid numbers.";
+            } else {
+                // Calculate the sum of the two numbers
+                const sum = firstNumber + secondNumber;
+
+                // Display the calculated sum
+                document.getElementById("sum").innerHTML = "Sum is: " + sum;
+            }
+        }
+    </script>
+</body>
+</html>

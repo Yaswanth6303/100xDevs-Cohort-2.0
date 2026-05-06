@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- Sets the character encoding for the document (UTF-8 supports most languages) -->
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Ensures the page is responsive and scales correctly on mobile devices -->
+
+        <title>Document</title>
+        <!-- Title of the webpage (appears on browser tab) -->
+
+        <link href="style.css" rel="stylesheet" />
+        <!-- Linking external CSS file for styling -->
+    </head>
+    <body>
+        <div>
+            <!-- A button element that shows the current count -->
+            <!-- The button has an id "increment" to access it in JavaScript -->
+            <!-- The onClick attribute calls the counter() function when clicked -->
+            <button id="increment" onClick="counter()">Count is 0</button>
+        </div>
+
+        <script>
+            // ------------------------------
+            // JavaScript Section
+            // ------------------------------
+
+            // We are using document.getElementById() to get the button element from the DOM.
+            // Then, we change the text of the button by modifying its innerHTML property.
+            // This is the traditional DOM manipulation method.
+
+            // In React, this manual DOM update is not required.
+            // Instead, React automatically updates the UI when state variables change.
+
+            let count = 0; // Initial counter value
+
+            // Function to handle button clicks
+            function counter() {
+                count = count + 1; // Increase the counter by 1
+                // Update the button text to show the new count value
+                document.getElementById('increment').innerHTML = 'Count is ' + count;
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Debounced Sum Calculator</title>
+</head>
+<body>
+    <br>
+    <!-- First number input; triggers the debounced function on every keystroke -->
+    <input oninput="debouncePopulatePara()" type="text" id="firstNumber" placeholder="First Number"><br><br>
+
+    <!-- Second number input; triggers the debounced function on every keystroke -->
+    <input oninput="debouncePopulatePara()" type="text" id="secondNumber" placeholder="Second Number"><br><br>
+
+    <!-- Area to display the sum -->
+    <p id="sum"></p>
+
+    <script>
+        // Holds the timeout ID for debouncing
+        let timeout;
+
+        // Debounce delay in milliseconds (change this value to adjust the wait time)
+        const DEBOUNCE_DELAY = 1000; // 1000ms = 1 second
+
+        /**
+         * Debounce function to delay the sum calculation.
+         * Only runs calculateSum() after the user stops typing for DEBOUNCE_DELAY ms.
+         */
+        function debouncePopulatePara() {
+            // Clear any existing timer to prevent premature execution
+            clearTimeout(timeout);
+
+            // Start a new timer that will run calculateSum() after DEBOUNCE_DELAY ms of inactivity
+            timeout = setTimeout(function () {
+                calculateSum();
+            }, DEBOUNCE_DELAY);
+        }
+
+        /**
+         * Fetches the sum from the server and displays it.
+         */
+        async function calculateSum() {
+            const firstNumber = document.getElementById("firstNumber").value;
+            const secondNumber = document.getElementById("secondNumber").value;
+
+            // Send GET request to the server with query parameters
+            try {
+                const response = await axios.get("http://localhost:3000/sum", {
+                    params: {
+                        a: firstNumber,
+                        b: secondNumber
+                    }
+                })
+                document.getElementById("sum").innerHTML = 'Sum is: ' + response.data.toString()
+            } catch (error) {
+                console.error("Error fetching sum:", error);
+            }
+        }
+    </script>
+</body>
+</html>

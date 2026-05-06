@@ -1,0 +1,116 @@
+<!--
+    This is a simple Todo application.
+    It allows the user to enter a Title and Description, 
+    then add them to the page as a Todo item with a "Mark as Done" button.
+    
+    Key concepts explained in this file:
+    - HTML input fields and button
+    - Creating and appending elements dynamically using JavaScript
+    - Handling button clicks with event listeners (onclick)
+    - Updating DOM elements after user interaction
+-->
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- The meta viewport tag makes the page responsive on mobile devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Todo Application</title>
+    </head>
+    <body>
+        <div>
+            <br />
+
+            <!-- Input field for Todo Title -->
+            <input id="title" type="text" placeholder="Title" /><br /><br />
+
+            <!-- Input field for Todo Description -->
+            <input id="description" type="text" placeholder="Description" /><br /><br />
+
+            <!-- Button that calls addTodo() when clicked -->
+            <button onclick="addTodo()">Add Todo</button>
+
+            <!-- Example structure of how each Todo will look when added dynamically:
+            <div id="todos">
+                <div>Title of Todo's 1</div>
+                <div>Description of Todo's 1</div>
+                <button>Mark as Done</button>
+            </div>
+            -->
+        </div>
+
+        <!-- Container where all Todos will be appended -->
+        <div id="container"></div>
+
+        <script>
+            // Function that gets executed when the "Add Todo" button is clicked
+            function addTodo() {
+                // Get values from input fields
+                const title = document.getElementById('title').value;
+                const description = document.getElementById('description').value;
+
+                // -----------------------------
+                // OLD WAY (Not recommended):
+                // Directly changing innerHTML of container with concatenation.
+                // Example:
+                // document.getElementById("container").innerHTML += `
+                //     <div>
+                //         <div>${title}</div>
+                //         <div>${description}</div>
+                //         <button>Mark as Done</button>
+                //     </div>`;
+                // This works, but is considered "ugly" because it:
+                //  - Re-renders the entire container each time
+                //  - Makes code harder to read and maintain
+                // -----------------------------
+
+                // -----------------------------
+                // CLEANER WAY (Recommended):
+                // Use createElement() to build elements step by step.
+                // This allows us to create a new Todo div without re-rendering everything.
+                // -----------------------------
+
+                // Create a new parent div for this Todo
+                const newTodo = document.createElement('div');
+
+                // Append this Todo div inside the container
+                document.getElementById('container').appendChild(newTodo);
+
+                // -----------------------------
+                // Inside this newTodo div, we need:
+                // 1. A child div for Title
+                // 2. A child div for Description
+                // 3. A button for marking the Todo as Done
+                // -----------------------------
+
+                // 1. Create Title div
+                const childTitleDiv = document.createElement('div');
+                childTitleDiv.innerHTML = title; // Set text inside the div
+                newTodo.appendChild(childTitleDiv); // Add it to Todo parent div
+
+                // 2. Create Description div
+                const childDescriptionDiv = document.createElement('div');
+                childDescriptionDiv.innerHTML = description; // Set description text
+                newTodo.appendChild(childDescriptionDiv); // Add to Todo parent div
+
+                // 3. Create "Mark as Done" button
+                const childButton = document.createElement('button');
+                childButton.innerHTML = 'Mark as Done'; // Initial button text
+
+                // Define what happens when button is clicked:
+                // Change text from "Mark as Done" to "Done" and vice-versa
+                childButton.onclick = function () {
+                    if (childButton.textContent === 'Done') {
+                        childButton.innerHTML = 'Mark as Done';
+                    } else {
+                        childButton.innerHTML = 'Done';
+                    }
+                };
+
+                // Add button to Todo parent div
+                newTodo.appendChild(childButton);
+            }
+        </script>
+    </body>
+</html>

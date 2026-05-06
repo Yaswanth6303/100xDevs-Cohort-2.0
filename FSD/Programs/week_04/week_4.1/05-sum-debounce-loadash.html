@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Debounced Sum Calculator (Lodash)</title>
+    <!-- Lodash CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <!-- Axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <br>
+    <!-- First number input -->
+    <input oninput="debouncedSum()" type="text" id="firstNumber" placeholder="First Number"><br><br>
+
+    <!-- Second number input -->
+    <input oninput="debouncedSum()" type="text" id="secondNumber" placeholder="Second Number"><br><br>
+
+    <!-- Display result -->
+    <p id="sum"></p>
+
+    <script>
+        /**
+         * Fetch sum from backend and update UI
+         */
+        async function calculateSum() {
+            const firstNumber = document.getElementById("firstNumber").value;
+            const secondNumber = document.getElementById("secondNumber").value;
+
+            try {
+                const response = await axios.get("http://localhost:3000/sum", {
+                    params: { a: firstNumber, b: secondNumber }
+                });
+                document.getElementById("sum").innerHTML = 'Sum is: ' + response.data.toString();
+            } catch (error) {
+                console.error("Error fetching sum:", error);
+            }
+        }
+
+        // Create a debounced version of calculateSum
+        const debouncedSum = _.debounce(calculateSum, 1000);
+    </script>
+</body>
+</html>

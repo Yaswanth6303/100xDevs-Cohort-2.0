@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <br>
+    <input type="text" id="principle" placeholder="Enter Principle"><br><br>
+    <input type="text" id="rate" placeholder="Enter Rate"><br><br>
+    <input type="text" id="time" placeholder="Enter Time"><br><br>
+
+    <button onclick="calculateInterestUsingAxios()">Calculate Interest</button>
+    <p id="finalInterest"></p>
+    <script>
+        async function calculateInterestUsingFetchDumbWay() {
+            const principle = document.getElementById("principle").value;
+            const rate = document.getElementById("rate").value;
+            const time = document.getElementById("time").value;
+
+            // Dumb Way
+            const response = await fetch("http://localhost:8080/interest?principal=" + principle + "&rate=" + rate + "&time=" + time)
+            const final = await response.json()
+            //console.log(final)
+            document.getElementById("finalInterest").innerHTML = 'Interest: ' + final.interest + ', Total: ' + final.total;
+        }
+
+        async function calculateInterestUsingAxiosDumbWay(){
+            const principle = document.getElementById("principle").value;
+            const rate = document.getElementById("rate").value;
+            const time = document.getElementById("time").value;
+
+            // Dumb Way
+            const response = await axios.get("http://localhost:8080/interest?principal=" + principle + "&rate=" + rate + "&time=" + time)
+            .then(function(response){
+              //console.log(response.data)
+              document.getElementById("finalInterest").innerHTML = 'Interest: ' + response.data.interest + ', Total: ' + response.data.total;
+            })
+        }
+
+        async function calculateInterestUsingAxios() {
+            const principle = document.getElementById("principle").value;
+            const rate = document.getElementById("rate").value;
+            const time = document.getElementById("time").value;
+
+            try {
+                const response = await axios.get(`http://localhost:8080/interest`, {
+                    params: { principal: principle, rate: rate, time: time }
+                });
+
+                document.getElementById("finalInterest").innerHTML =`Interest: ${response.data.interest}, Total: ${response.data.total}`;
+            } catch (error) {
+                console.error("Error fetching interest:", error);
+            }
+        }
+
+    </script>
+</body>
+</html>

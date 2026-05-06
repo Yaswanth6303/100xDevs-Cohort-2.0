@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Todo App (Backend Synced)</title>
+        <!-- Add axios -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <h1>Todo App</h1>
+
+        <input type="text" id="title" placeholder="Todo title" /> <br /><br />
+        <input type="text" id="description" placeholder="Todo description" /> <br /><br />
+
+        <div id="container"></div>
+
+        <script>
+            let globalId = 1;
+
+            function createChild(title, description, id) {
+                const child = document.createElement('div');
+                child.setAttribute('id', id);
+
+                const firstGrandChild = document.createElement('div');
+                firstGrandChild.textContent = title;
+
+                const secondGrandChild = document.createElement('div');
+                secondGrandChild.textContent = description;
+
+                const thirdGrandChild = document.createElement('button');
+                thirdGrandChild.textContent = 'Mark as done';
+                thirdGrandChild.setAttribute('onclick', `markAsDone(${id})`);
+
+                child.appendChild(firstGrandChild);
+                child.appendChild(secondGrandChild);
+                child.appendChild(thirdGrandChild);
+
+                return child;
+            }
+
+            function domupdateAccordingtoState(state) {
+                const parent = document.getElementById('container');
+                parent.innerHTML = '';
+                for (let i = 0; i < state.length; i++) {
+                    const child = createChild(state[i].title, state[i].description, state[i].id);
+                    parent.appendChild(child);
+                }
+            }
+
+            // TODO: implement markAsDone with backend sync
+            function markAsDone(id) {
+                console.log('Marking todo as done for id:', id);
+                // Example: axios.post("http://localhost:3000/todos/markDone", { id })
+            }
+
+            // Polling every 5s
+            window.setInterval(async function () {
+                try {
+                    const response = await axios.get('http://localhost:3000/todos');
+                    console.log(response.data);
+                    domupdateAccordingtoState(response.data.todos);
+                } catch (err) {
+                    console.error('Error fetching todos:', err);
+                }
+            }, 5000);
+        </script>
+    </body>
+</html>

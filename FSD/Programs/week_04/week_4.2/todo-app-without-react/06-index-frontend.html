@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Todo App</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+            }
+            #container {
+                margin-top: 20px;
+            }
+            .todo {
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+            .todo button {
+                margin-top: 10px;
+                padding: 5px 10px;
+                background: #007bff;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            .todo button:hover {
+                background: #0056b3;
+            }
+            .done {
+                text-decoration: line-through;
+                color: gray;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Todo List</h1>
+
+        <div>
+            <input type="text" id="title" placeholder="Todo title" /> <br /><br />
+            <input type="text" id="description" placeholder="Todo description" /> <br /><br />
+            <button onclick="addTodo()">Add Todo</button>
+        </div>
+
+        <div id="container"></div>
+
+        <script>
+            function createChild(title, description, id, completed) {
+                const child = document.createElement('div');
+                child.className = 'todo';
+
+                const firstGrandChild = document.createElement('div');
+                firstGrandChild.innerHTML = `<strong>${title}</strong>`;
+                if (completed) firstGrandChild.classList.add('done');
+
+                const secondGrandChild = document.createElement('div');
+                secondGrandChild.textContent = description;
+                if (completed) secondGrandChild.classList.add('done');
+
+                const thirdGrandChild = document.createElement('button');
+                thirdGrandChild.innerHTML = completed ? 'Done' : 'Mark as done';
+                thirdGrandChild.disabled = completed;
+                thirdGrandChild.setAttribute('onclick', `markAsDone(${id})`);
+
+                child.appendChild(firstGrandChild);
+                child.appendChild(secondGrandChild);
+                child.appendChild(thirdGrandChild);
+                child.setAttribute('id', id);
+
+                return child;
+            }
+
+            function updateDomAccToState(state) {
+                const parent = document.getElementById('container');
+                parent.innerHTML = '';
+                for (let i = 0; i < state.length; i++) {
+                    const child = createChild(
+                        state[i].title,
+                        state[i].description,
+                        state[i].id,
+                        state[i].completed
+                    );
+                    parent.appendChild(child);
+                }
+            }
+
+            async function pollTodos() {
+                try {
+                    const response = await axios.get('http://localhost:3000/todos');
+                    const json = response.data;
+                    updateDomAccToState(json.todos);
+                } catch (err) {
+                    console.error('Error fetching todos:', err);
+                }
+                setTimeout(pollTodos, 5000); // schedule next poll
+            }
+
+            async function addTodo() {
+                const title = document.getElementById('title').value;
+                const description = document.getElementById('description').value;
+                if (!title || !description)
+                    return alert('Please enter both title and description!');
+
+                try {
+                    await axios.post('http://localhost:3000/todos', { title, description });
+                    document.getElementById('title').value = '';
+                    document.getElementById('description').value = '';
+                } catch (err) {
+                    console.error('Error adding todo:', err);
+                }
+            }
+
+            async function markAsDone(id) {
+                try {
+                    await axios.put(`http://localhost:3000/todos/${id}`, { done: true });
+                } catch (err) {
+                    console.error('Error marking as done:', err);
+                }
+            }
+
+            // Start polling on load
+            pollTodos();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "name": "prisma-project",
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "@types/bun": "latest",
+    "@types/pg": "^8.16.0",
+    "@typescript-eslint/eslint-plugin": "^8.11.0",
+    "@typescript-eslint/parser": "^8.11.0",
+    "eslint": "^9.33.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3",
+    "prisma": "^7.2.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.2.0",
+    "@prisma/client": "^7.2.0",
+    "@types/express": "^5.0.6",
+    "express": "^5.2.1",
+    "pg": "^8.16.3"
+  },
+  "scripts": {
+    "start": "bun run prisma:deploy && bun run src/index.ts",
+    "prisma:deploy": "bunx prisma db push",
+    "dev": "bun run --watch src/index.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:json": "eslint . --format json",
+    "format": "prettier --write ."
+  }
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #hv{
+            background-color: yellow;
+            height: 20px;
+            width: 120px;
+            padding: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>The Javascript HTML Events</h1>
+    <h2>The onmousedown Attribute</h2>
+
+    <div onmousedown="mOver(this)" onmouseup="mOut(this)" id="hv">
+        Click Me
+    </div>
+
+    <script>
+        function mOver(obj){
+            obj.style.background = "#1ec5e5";
+            obj.innerHTML = "Release Me"
+        }
+        function mOut(obj){
+            obj.style.background = "#D94A38";
+            obj.innerHTML ="Thank You"
+        }
+    </script>
+</body>
+</html>

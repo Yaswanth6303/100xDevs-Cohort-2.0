@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Todo App</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+            }
+            #todos {
+                margin-top: 20px;
+            }
+            .todo {
+                border: 1px solid #ccc;
+                padding: 10px;
+                margin-bottom: 10px;
+                border-radius: 5px;
+            }
+            .todo button {
+                margin-top: 10px;
+            }
+        </style>
+        <script>
+            let globalId = 1;
+
+            function markAsDone(todoId) {
+                const parent = document.getElementById(todoId);
+                const button = parent.querySelector('button');
+                button.textContent = 'Done!';
+                parent.style.textDecoration = 'line-through';
+            }
+
+            function createChild(title, description, id) {
+                const child = document.createElement('div');
+                child.classList.add('todo');
+                child.setAttribute('id', id);
+
+                const firstGrandChild = document.createElement('div');
+                firstGrandChild.textContent = title;
+
+                const secondGrandChild = document.createElement('div');
+                secondGrandChild.textContent = description;
+
+                const thirdGrandChild = document.createElement('button');
+                thirdGrandChild.textContent = 'Mark as done';
+                thirdGrandChild.setAttribute('onclick', `markAsDone(${id})`);
+
+                child.appendChild(firstGrandChild);
+                child.appendChild(secondGrandChild);
+                child.appendChild(thirdGrandChild);
+
+                return child;
+            }
+
+            function addTodo() {
+                const title = document.getElementById('title').value.trim();
+                const description = document.getElementById('description').value.trim();
+                const parent = document.getElementById('todos');
+
+                if (title === '' || description === '') {
+                    alert('Please enter both title and description.');
+                    return;
+                }
+
+                parent.appendChild(createChild(title, description, globalId++));
+
+                // Clear inputs after adding
+                document.getElementById('title').value = '';
+                document.getElementById('description').value = '';
+            }
+        </script>
+    </head>
+
+    <body>
+        <h1>Todo App</h1>
+
+        <div>
+            <input type="text" id="title" placeholder="Todo title" />
+            <br /><br />
+            <input type="text" id="description" placeholder="Todo description" />
+            <br /><br />
+            <button onclick="addTodo()">Add todo</button>
+        </div>
+
+        <div id="todos"></div>
+    </body>
+</html>
+

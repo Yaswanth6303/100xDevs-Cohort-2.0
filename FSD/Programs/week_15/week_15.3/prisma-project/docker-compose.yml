@@ -1,0 +1,27 @@
+services:
+  mongo:
+    image: mongo
+    container_name: c2-w15-3-docker-compose-networks
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_db_data:/data/db
+    networks:
+      - c2_w15-3_network
+
+  node-app:
+    build: .
+    container_name: c2-w15-3-node-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    networks:
+      - c2_w15-3_network
+
+volumes:
+  mongo_db_data:
+
+networks:
+  c2_w15-3_network:
+    driver: bridge

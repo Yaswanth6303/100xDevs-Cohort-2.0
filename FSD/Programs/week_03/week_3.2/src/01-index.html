@@ -1,0 +1,63 @@
+<!--I am already having the backend from the given website https://fakerapi.it/api/v1/persons
+I want to hit this backend using this frontend.
+I want to show the data on the screen.-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div id="container"></div>
+    <button onclick="getAnimals1()">Get animals</button>
+    <script>
+      function getAnimals() {
+        // Method 1
+
+        /* The line below calls the fetch API with the given URL. 
+           By default, fetch sends a GET request. */
+        /* const response = fetch("https://fakerapi.it/api/v1/persons")  
+           When you inspect the console, you might see `Promise<pending>`. 
+           This is because `fetch` is an asynchronous call. It must go through 
+           various network processes provided by the internet service provider 
+           to reach the FakerAPI backend. While waiting for the data, the Promise 
+           will remain in a pending state.
+           To handle the data returned by the Promise, we use the `.then()` function. */
+
+        // Here we are using `.then()` for fetch because it is an asynchronous function
+        fetch("https://fakerapi.it/api/v1/persons").then((response) => {
+          // At this point, we can inspect the full response object.
+
+          /* We call `response.json()` here because the Faker API 
+             returns data in JSON format. */
+          /* const json = response.json()  
+             If you log this, you will again see `Promise<pending>` 
+             because `response.json()` is also an asynchronous function. */
+
+          response.json().then(function (finalData) {
+            console.log(finalData); // Here we get the actual data from the backend.
+
+            /* If we go to Inspect → Network tab, we can see the requests being made.  
+               There will be a request named "persons".  
+               If we open its Headers tab, we will see that our request is directly 
+               hitting the FakerAPI backend, which confirms that this is a fetch request. */
+          });
+        });
+      }
+
+      // In getAnimals1(), we know that we are calling two asynchronous functions (fetch, response.json()).
+      // Therefore, we use the `await` keyword wherever we call an async function to wait for its response.
+      async function getAnimals1() {
+        // Method 2 — a cleaner syntax using async/await
+        const response = await fetch("https://fakerapi.it/api/v1/persons");
+        const finalData = await response.json();
+        console.log(finalData); // If we want to see the data, open Inspect → Console, and the data will be there.
+
+        // To display the data on the screen instead of just the console, we will use DOM manipulation.
+      }
+    </script>
+  </body>
+</html>

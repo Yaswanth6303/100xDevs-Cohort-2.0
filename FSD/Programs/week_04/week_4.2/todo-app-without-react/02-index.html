@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- Makes page responsive on mobile -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Todo List</title>
+    </head>
+    <body>
+        <div>
+            <br />
+            <!-- Input field for Title -->
+            <input id="title" type="text" placeholder="Title" /><br /><br />
+
+            <!-- Input field for Description -->
+            <input id="description" type="text" placeholder="Description" /><br /><br />
+
+            <!-- Button to add a new Todo -->
+            <button onclick="addTodo()">Add Todo</button>
+        </div>
+
+        <!-- Container where all todos will be displayed -->
+        <div id="container"></div>
+
+        <script>
+            // Counter to generate unique IDs for each todo
+            let todoCounter = 0;
+
+            // Function to create and add a new todo
+            function addTodo() {
+                // Get values from input fields
+                const title = document.getElementById('title').value;
+                const description = document.getElementById('description').value;
+
+                // Increment counter (every new todo gets a new number)
+                todoCounter++;
+
+                // Create a parent div for the todo
+                const newTodo = document.createElement('div');
+                newTodo.id = `todo-${todoCounter}`; // Assign unique ID
+
+                // Append this new todo div to the main container
+                document.getElementById('container').appendChild(newTodo);
+
+                // Create and add Title div
+                const childTitleDiv = document.createElement('div');
+                childTitleDiv.innerHTML = `Title of Todo ${todoCounter}: ${title}`;
+                newTodo.appendChild(childTitleDiv);
+
+                // Create and add Description div
+                const childDescriptionDiv = document.createElement('div');
+                childDescriptionDiv.innerHTML = `Description of Todo ${todoCounter}: ${description}`;
+                newTodo.appendChild(childDescriptionDiv);
+
+                // Create a button for "Mark as Done"
+                const childButton = document.createElement('button');
+                childButton.innerHTML = 'Mark as Done';
+
+                // When clicked, call markAsDone() with this todo’s ID
+                childButton.onclick = function () {
+                    markAsDone(newTodo.id);
+                };
+
+                newTodo.appendChild(childButton);
+            }
+
+            // Function to mark a todo as Done/Not Done
+            function markAsDone(id) {
+                const todoDiv = document.getElementById(id); // Find todo by ID
+                const button = todoDiv.querySelector('button'); // Get its button
+
+                // If already done, revert back
+                if (button.textContent === 'Done') {
+                    button.innerHTML = 'Mark as Done';
+                    todoDiv.style.textDecoration = 'none'; // Remove strike-through
+                }
+                // If not done, mark it as done
+                else {
+                    button.innerHTML = 'Done';
+                    todoDiv.style.textDecoration = 'line-through'; // Strike-through text
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "server",
+  "module": "src/server.js",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "eslint": "^9.33.0",
+    "@eslint/js": "^9.33.0"
+  },
+  "scripts": {
+    "start": "bun run src/server.js",
+    "dev": "bun run --hot src/server.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:json": "eslint . --format json"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}

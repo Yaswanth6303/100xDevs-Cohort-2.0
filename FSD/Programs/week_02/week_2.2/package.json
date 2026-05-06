@@ -1,0 +1,31 @@
+{
+  "name": "lecture_2.2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node 01-index.js",
+    "dev": "nodemon 01-index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:json": "eslint . --format json",
+    "format": "prettier --write ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "eslint": "^9.33.0",
+    "@eslint/js": "^9.33.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3"
+  },
+  "module": "src/index.js"
+}

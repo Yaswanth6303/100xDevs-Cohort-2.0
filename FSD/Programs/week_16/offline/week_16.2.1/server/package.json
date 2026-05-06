@@ -1,0 +1,38 @@
+{
+  "name": "server",
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "eslint": "^9.33.0",
+    "@eslint/js": "^9.33.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3",
+    "@typescript-eslint/parser": "^8.11.0",
+    "@typescript-eslint/eslint-plugin": "^8.11.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "build": "bun build src/index.ts --outdir dist",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:json": "eslint . --format json",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "path": "^0.12.7"
+  }
+}

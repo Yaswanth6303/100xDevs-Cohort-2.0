@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form id="frm1" action="/action_page.php">
+        First name: <input type="text" name="fname" placeholder="Donald"><br>
+        Last name: <input type="text" name="lname" placeholder="Trump"><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <p>These are the values of each element in the form:</p>
+
+    <button onclick="showValues()">Show Values</button>
+    <p id="demo"></p>
+
+    <script>
+        function showValues() {
+            const x = document.forms["frm1"];
+            let text = "";
+            for (let i = 0; i < x.length; i++) {
+                text += x.elements[i].value + "<br>";
+            }
+            document.getElementById("demo").innerHTML = text;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "eslint": "^9.33.0",
+    "@eslint/js": "^9.33.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:json": "eslint . --format json",
+    "format": "prettier --write ."
+  },
+  "main": "src/index.js",
+  "module": "src/index.js"
+}

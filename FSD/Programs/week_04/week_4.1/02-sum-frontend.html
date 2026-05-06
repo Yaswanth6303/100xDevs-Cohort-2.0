@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sum Calculator with Fetch and Axios</title>
+    <!-- Import Axios library from CDN for making HTTP requests -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <br>
+    <!-- Input field for the first number -->
+    <input type="text" id="firstNumber" placeholder="First Number"><br><br>
+
+    <!-- Input field for the second number -->
+    <input type="text" id="secondNumber" placeholder="Second Number"><br><br>
+
+    <!-- Button to calculate sum using Axios with async/await -->
+    <button onclick="calculateSumUsingAxios()">Calculate Sum</button>
+
+    <!-- Paragraph to display the calculated sum -->
+    <p id="sum"></p>
+
+    <script>
+        /**
+         * Example 1: Fetch API (Basic Promise Chain Approach)
+         * Demonstrates the older `.then()` style for handling asynchronous requests.
+         */
+        function calculateSumUsingFetchDumbWay() {
+            const firstNumber = document.getElementById("firstNumber").value;
+            const secondNumber = document.getElementById("secondNumber").value;
+            const element = document.getElementById("sum");
+
+            // Send GET request with query parameters using Fetch API
+            fetch("http://localhost:3000/sum?a=" + firstNumber + "&b=" + secondNumber)
+                .then(function (response) {
+                    // Convert the response body to text (also returns a Promise)
+                    response.text().then(function (final) {
+                        // Display the sum in the paragraph
+                        element.innerHTML = 'Sum is: ' + final;
+                    });
+                });
+        }
+
+        /**
+         * Example 2: Fetch API (Modern async/await approach)
+         * Cleaner and easier to read than nested `.then()` calls.
+         */
+        async function calculateSumUsingAsyncWithFetch() {
+            const firstNumber = document.getElementById("firstNumber").value;
+            const secondNumber = document.getElementById("secondNumber").value;
+
+            // Send GET request using Fetch API
+            const response = await fetch("http://localhost:3000/sum?a=" + firstNumber + "&b=" + secondNumber);
+            const final = await response.text(); // response.text() also return promise, so we use await
+
+            // Display the result
+            document.getElementById("sum").innerHTML = 'Sum is: ' + final;
+        }
+
+        /**
+         * Example 3: Axios (Promise Chain Approach)
+         * Axios automatically parses JSON responses but can also return text directly.
+         */
+        function calculateSumUsingAxiosDumbWay() {
+            const firstNumber = document.getElementById("firstNumber").value;
+            const secondNumber = document.getElementById("secondNumber").value;
+            const element = document.getElementById("sum");
+
+            // Send GET request using Axios with query parameters
+            axios.get("http://localhost:3000/sum?a=" + firstNumber + "&b=" + secondNumber).then(function (response) {
+                // Display the result (Axios stores data in response.data)
+                element.innerHTML = 'Sum is: ' + response.data;
+            });
+        }
+
+        /**
+         * Example 4: Axios (Modern async/await approach)
+         * Best practice: clean, readable, and with error handling.
+         */
+        async function calculateSumUsingAxios() {
+            const firstNumber = document.getElementById("firstNumber").value;
+            const secondNumber = document.getElementById("secondNumber").value;
+
+            try {
+                // Send GET request with query parameters using Axios
+                const response = await axios.get("http://localhost:3000/sum", {
+                    params: {
+                        a: firstNumber,
+                        b: secondNumber
+                    }
+                });
+
+                // Display the result, ensuring it's converted to string
+                document.getElementById("sum").innerHTML = 'Sum is: ' + response.data.toString();
+            } catch (error) {
+                // Log any errors to the console
+                console.error("Error fetching sum:", error);
+            }
+        }
+    </script>
+</body>
+</html>

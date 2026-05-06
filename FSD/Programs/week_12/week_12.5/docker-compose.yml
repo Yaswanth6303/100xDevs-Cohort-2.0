@@ -1,0 +1,16 @@
+name: c2_w12-5_prisma_postgres
+services:
+  db:
+    image: postgres:latest
+    container_name: week_12-5_prisma_postgres-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
