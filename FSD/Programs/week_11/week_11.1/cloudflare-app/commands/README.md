@@ -1,14 +1,15 @@
 # ☁️ Serverless Application using Cloudflare Workers
 
-This project demonstrates how to build and deploy a **serverless function** using **Cloudflare Workers** with **Bun** as the runtime and package manager.  
+This project demonstrates how to build and deploy a **serverless function** using **Cloudflare Workers** with **Bun** as the runtime and package manager.
 Cloudflare Workers are similar to **AWS Lambda**, but they run at the **edge**, providing **faster response times** and **global availability**.
 
 ---
 
 ## 🚀 What Are Cloudflare Workers?
 
-Cloudflare Workers allow you to run lightweight JavaScript, TypeScript, or WebAssembly code on Cloudflare’s global network — without managing servers.  
+Cloudflare Workers allow you to run lightweight JavaScript, TypeScript, or WebAssembly code on Cloudflare’s global network — without managing servers.
 They are ideal for:
+
 - Building APIs
 - Handling requests at the edge
 - Performing lightweight computations
@@ -31,12 +32,13 @@ Before getting started, make sure you have the following installed:
 To create a new Cloudflare Worker project using **Bun**, run:
 
 ```bash
-bun create cloudflare -- my-app
+bun create cloudflare -- cloudflare-app
 ```
 
 This command scaffolds a new Cloudflare Worker project named my-app with all the necessary configuration files.
 
 ## 🧠 Project Structure
+
 ```bash
 cloudflare-app/
 ├── src/
@@ -55,9 +57,9 @@ For example:
 
 ```typescript
 export default {
-  async fetch(request: Request): Promise<Response> {
-    return new Response("Hello from Cloudflare Worker!", { status: 200 });
-  },
+	async fetch(request: Request): Promise<Response> {
+		return new Response('Hello from Cloudflare Worker!', { status: 200 });
+	},
 };
 ```
 
@@ -105,4 +107,4 @@ After deployment, Wrangler will show you the live URL of your Worker, for exampl
 | `bun run dev`                     | Runs the Worker locally for development |
 | `bun run deploy`                  | Deploys the Worker to Cloudflare        |
 
-> **_NOTE:_**  To change the name of the app change it in **`wrangler.jsonc`**
+> **_NOTE:_** To change the name of the app change it in **`wrangler.jsonc`**
