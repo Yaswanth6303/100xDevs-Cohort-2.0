@@ -3,9 +3,18 @@
   "name": "c2-w-12-6-prisma-accelerate",
   "main": "src/index.ts",
   "compatibility_date": "2026-01-09",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "build": {
     "command": "bunx prisma generate"
   },
-  "rules": [{ "type": "ESModule", "globs": ["**/*.wasm"] }]
+  "rules": [
+    {
+      "type": "ESModule",
+      "globs": [
+        "**/*.wasm"
+      ]
+    }
+  ]
 }
