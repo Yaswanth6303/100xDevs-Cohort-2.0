@@ -12,7 +12,6 @@ import "./App.css";
     can receive it.
 
   This makes the Count component handle props that don’t belong to it.
-  That’s why you mentioned this feels "ugly."
 
   To make it cleaner, you probably use Context API
   or another method so that Buttons can directly access `setCount` without

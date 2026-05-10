@@ -97,7 +97,6 @@ function Buttons({ setCount }) {
    * - Any change in context value triggers a re-render for all context consumers.
    */
 
-  const count = useContext(CountContext);
   console.log("Buttons component re-rendered");
 
   return (
@@ -128,7 +127,7 @@ export default App;
 
 /**
  * Summary:
- * - We use Context API here to avoid prop drilling.
+ * - We use Context API here to avoid prop drilling and to make syntax cleaner.
  * - Problem: Context forces all consuming components to re-render
  *   whenever the value changes (even if they don’t use it).
  * - This leads to performance issues in bigger apps.

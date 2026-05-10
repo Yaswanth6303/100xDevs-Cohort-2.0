@@ -95,7 +95,7 @@ function TopBar() {
 
       {/* Clicking these buttons changes the URL and triggers lazy loading of the required page */}
       <button onClick={() => navigate("/")}>Landing</button>
-      <button onClick={() => navigate("dashboard")}>Dashboard</button>
+      <button onClick={() => navigate("/dashboard")}>Dashboard</button>
     </div>
   );
 }

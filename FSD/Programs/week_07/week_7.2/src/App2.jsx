@@ -2,7 +2,8 @@
 this change, we will create two separate folders: one for components and one for state. 
 This approach is used by Razorpay.*/
 
-/* In Recoil, atoms function is similarly to `useState` in React. Atoms allow us to set, 
+/* In Recoil, atoms function is similarly to `useState` in React. 
+Atoms are the smallest unit of state in Recoil. Atoms allow us to set, 
 update, and retrieve state variables. By defining the state outside of the main logic, 
 we can manage it more effectively. One major advantage of this approach is that it solves 
 the problem of unnecessary re-renders. Components or functions that do not use the state 
@@ -13,7 +14,7 @@ There is a folder called store in that place we store all the atoms
 In App.jsx we have used a State variable but now we use Atom to create a State Variable    
 */
 
-// Here App1 and Count is not having any state variable
+// Here App2 and Count is not having any state variable
 // CountRerender needs count variable
 // Buttons need setCount variable
 
@@ -24,6 +25,12 @@ useRecoilValue
 If we want to update the value use
 useSetRecoilState
 useRecoil is same as useState [One is current value, one is for updating the value] 
+*/
+
+/*
+Does this mean we should never user useState ??
+No, There are some cases where we define a state in a component and uses in that component iself that's the time 
+where we use useState otherwise use atoms
 */
 
 import { useMemo } from "react";
@@ -65,27 +72,6 @@ function CountRenderer() {
       <b>{count}</b>
     </div>
   );
-}
-
-// Method 1 Without selectors With selectors visit App2.jsx
-function EvenCountRender() {
-  // This is slightly Unoptimal because whenever i click on Increase or Decrease buttons
-  // This is getting rerendered to stop this use useMemo().
-  const count = useRecoilValue(countAtom);
-  const isEven = count % 2 == 0;
-  console.log("Rerender");
-  return <div>{isEven ? "It is even" : null}</div>;
-}
-
-function EvenCountRenderOptimised() {
-  // Here i am using useMemo() so whenever the count changes then only the function
-  // will rerender. Slightly optimal
-  const count = useRecoilValue(countAtom);
-  console.log("Rerender");
-  const isEven = useMemo(() => {
-    return count % 2 == 0;
-  }, [count]);
-  return <div>{isEven ? "It is even" : null}</div>;
 }
 
 function Buttons() {
@@ -132,6 +118,30 @@ function Buttons() {
       <EvenCountRenderOptimised></EvenCountRenderOptimised>
     </div>
   );
+}
+
+// Method 1 Without selectors With selectors visit App2.jsx
+function EvenCountRender() {
+  // This is slightly Unoptimal because whenever i click on Increase or Decrease buttons
+  // This is getting rerendered to stop this use useMemo().
+  const count = useRecoilValue(countAtom);
+  const isEven = count % 2 == 0;
+  console.log("Rerender");
+  return <div>{isEven ? "It is even" : null}</div>;
+}
+
+function EvenCountRenderOptimised() {
+  // Here i am using useMemo() so whenever the count changes then only the function
+  // will rerender. Slightly optimal
+  const count = useRecoilValue(countAtom);
+  console.log("Rerender");
+  // If the number is even or odd it is completely dependepnt on the count
+  // The optimization useMemo gives us is that if any re-render occures and count is not changing the
+  // expensive operation will not get performed.
+  const isEven = useMemo(() => {
+    return count % 2 == 0;
+  }, [count]);
+  return <div>{isEven ? "It is even" : null}</div>;
 }
 
 export default App2;
